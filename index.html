@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- استدعاء مكتبة A-Frame ومكتبة MindAR -->
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.1.4/dist/mindar-image-aframe.prod.js"></script>
+    
+    <style>
+        body { margin: 0; overflow: hidden; }
+        /* شاشة التحميل */
+        #example-scanning-overlay {
+            display: flex; align-items: center; justify-content: center;
+            position: absolute; left: 0; right: 0; top: 0; bottom: 0;
+            background: rgba(0,0,0,0.5); color: white; z-index: 10;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- مشهد الواقع المعزز -->
+    <!-- قم بتغيير 'targets.mind' باسم ملفك إذا كان مختلفاً -->
+    <a-scene mindar-image="imageTargetSrc: ./targets.mind;" color-management="true" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+        
+        <a-assets>
+            <!-- تحميل المجسم ثلاثي الأبعاد -->
+            <!-- استبدل 'product.glb' برابط أو مسار ملفك -->
+            <a-asset-item id="productModel" src="./product.glb"></a-asset-item>
+        </a-assets>
+
+        <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+
+        <!-- ربط المجسم بالصورة (index: 0 يعني أول صورة في الملف) -->
+        <a-entity mindar-image-target="targetIndex: 0">
+            <!-- عرض المجسم، يمكنك التحكم في scale (الحجم) و rotation (التدوير) -->
+            <a-gltf-model src="#productModel" rotation="0 0 0" position="0 0 0" scale="0.1 0.1 0.1" animation="property: rotation; to: 0 360 0; dur: 5000; easing: linear; loop: true">
+            </a-gltf-model>
+        </a-entity>
+        
+    </a-scene>
+
+</body>
+</html>
